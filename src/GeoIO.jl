@@ -51,6 +51,8 @@ import GeoParquet as GPQ
 import GeoInterface as GI
 import GeoFormatTypes as GFT
 
+# SQLite Database Interface
+import SQLite
 
 # PROJJSON CRS
 import JSON3
@@ -71,7 +73,7 @@ const CDMEXTS = [".grib", ".nc"]
 const FORMATS = [
   (extension=".csv", load="CSV.jl", save="CSV.jl"),
   (extension=".geojson", load="GeoJSON.jl", save="GeoJSON.jl"),
-#  (extension=".gpkg", load="GeoIO.jl", save="GeoIO.jl"),
+  (extension=".gpkg", load="GeoIO.jl", save="GeoIO.jl"),
   (extension=".grib", load="GRIBDatasets.jl", save=""),
   (extension=".gslib", load="GslibIO.jl", save="GslibIO.jl"),
   (extension=".jpeg", load="ImageIO.jl", save="ImageIO.jl"),
@@ -123,7 +125,7 @@ include("conversion.jl")
 # extra code for backends
 include("extra/cdm.jl")
 include("extra/csv.jl")
-#include("extra/gdal.jl")
+include("extra/gpkg.jl")
 include("extra/geotiff.jl")
 include("extra/gis.jl")
 include("extra/img.jl")
