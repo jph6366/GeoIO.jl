@@ -5,6 +5,10 @@
 # query SQLite.Table given *.gpkg filename; optionally specify quantity of tables and features query
 # default behavior for select statement is limit result to 1 feature geometry row and corresponding attributes row
 # limited to only 1 feature table to select geopackage binary geometry from.
+#  
+#  E.G. GPKGREAD w/ OPTIONS to SELECT FROM FIRST 2 TABLES AND LIMIT QUERY TO 3 FEATURES PER TABLE
+#  gpkgread("../geostats.gpkg", ; ntables=2, nfeatures=3 )
+#
 function gpkgread(fname ;ntables=1, nfeatures=1)
     db = SQLite.DB(fname)
     gpkg_identify(db)
@@ -24,7 +28,9 @@ function gpkg_identify(db)::Bool
     end
 
     # Requirement 6: PRAGMA integrity_check returns a single row with the value 'ok'
+    #### https://www.geopackage.org/spec/#r6 ####
     # Requirement 7: PRAGMA foreign_key_check (w/ no parameter value) returns an empty result set
+    #### https://www.geopackage.org/spec/#r7 ####
     if (application_id != GP10_APPLICATION_ID) &&
             (application_id != GP11_APPLICATION_ID) &&
                 (application_id != GPKG_APPLICATION_ID)
@@ -49,7 +55,9 @@ function gpkg_identify(db)::Bool
 end
 
 # Requirement 10: must include a gpkg_spatial_ref_sys table
+### https://www.geopackage.org/spec/#r10 ###
 # Requirement 13: must include a gpkg_contents table
+### https://www.geopackage.org/spec/#r13 ###
 function _has_gpkg_required_metadata_tables(db)
     stmt_sql = "SELECT COUNT(*) FROM sqlite_master WHERE "*
                "name IN ('gpkg_spatial_ref_sys', 'gpkg_contents') AND "*
@@ -92,7 +100,8 @@ function gpkgmeshattrs(db, ;ntables::Int=1, nfeatures=1)
     return tb
 end
 
-
+  
+ 
 ##############################################################################
 ########### Features - Geometry Columns: Table Data Values ###################
 ##############################################################################

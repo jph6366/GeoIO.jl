@@ -9,6 +9,7 @@ function gpkgwrite(fname, geotable; )
     # if there is an operating-system crash or power failure.
     # If the power never goes out and no programs ever crash
     # on you system then Synchronous = OFF is for you
+    # https://sqlite.org/pragma.html#pragma_synchronous
     ####################################################
 
     SQLite.transaction(db) do

@@ -47,11 +47,12 @@ import GeoTIFF
 # GIS formats
 import Shapefile as SHP
 import GeoJSON as GJS
-import ArchGDAL as AG
 import GeoParquet as GPQ
 import GeoInterface as GI
 import GeoFormatTypes as GFT
-import ArchGDAL.GDAL
+
+# SQLite Database Interface
+import SQLite
 
 # Julia databases
 import SQLite
@@ -80,7 +81,7 @@ const FORMATS = [
   (extension=".gslib", load="GslibIO.jl", save="GslibIO.jl"),
   (extension=".jpeg", load="ImageIO.jl", save="ImageIO.jl"),
   (extension=".jpg", load="ImageIO.jl", save="ImageIO.jl"),
-  (extension=".kml", load="ArchGDAL.jl", save=""),
+ # (extension=".kml", load="GeoIO.jl", save="GeoIO.jl"),
   (extension=".msh", load="GeoIO.jl", save="GeoIO.jl"),
   (extension=".nc", load="NCDatasets.jl", save="NCDatasets.jl"),
   (extension=".obj", load="GeoIO.jl", save="GeoIO.jl"),
@@ -127,7 +128,7 @@ include("conversion.jl")
 # extra code for backends
 include("extra/cdm.jl")
 include("extra/csv.jl")
-include("extra/gdal.jl")
+include("extra/gpkg.jl")
 include("extra/geotiff.jl")
 include("extra/gis.jl")
 include("extra/img.jl")
